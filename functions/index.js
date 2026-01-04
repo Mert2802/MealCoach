@@ -338,7 +338,15 @@ app.post("/api/log-meal", async (req, res) => {
   });
 });
 
-app.post("/api/analyze-meal", upload.single("image"), async (req, res) => {
+const maybeMultipart = (req, res, next) => {
+  if (req.is("multipart/form-data")) {
+    upload.single("image")(req, res, next);
+    return;
+  }
+  next();
+};
+
+app.post("/api/analyze-meal", maybeMultipart, async (req, res) => {
   const client = getOpenAIClient();
   if (!client) {
     return res.status(500).json({ error: "OPENAI_API_KEY missing" });
