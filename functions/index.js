@@ -6,7 +6,8 @@ const dayjs = require("dayjs");
 const dotenv = require("dotenv");
 const OpenAI = require("openai");
 const webpush = require("web-push");
-const functions = require("firebase-functions");
+const { onRequest } = require("firebase-functions/v2/https");
+const { defineSecret } = require("firebase-functions/params");
 const admin = require("firebase-admin");
 
 dotenv.config();
@@ -20,14 +21,18 @@ const upload = multer({ storage: multer.memoryStorage() });
 app.use(cors({ origin: true }));
 app.use(express.json({ limit: "10mb" }));
 
+const OPENAI_API_KEY = defineSecret("OPENAI_API_KEY");
+const VAPID_PUBLIC_KEY = defineSecret("VAPID_PUBLIC_KEY");
+const VAPID_PRIVATE_KEY = defineSecret("VAPID_PRIVATE_KEY");
+const VAPID_SUBJECT = defineSecret("VAPID_SUBJECT");
+
 function getConfig() {
-  const cfg = (functions.config && functions.config()) || {};
   return {
-    openaiKey: process.env.OPENAI_API_KEY || cfg?.openai?.key,
-    vapidPublic: process.env.VAPID_PUBLIC_KEY || cfg?.vapid?.public,
-    vapidPrivate: process.env.VAPID_PRIVATE_KEY || cfg?.vapid?.private,
+    openaiKey: process.env.OPENAI_API_KEY || OPENAI_API_KEY.value(),
+    vapidPublic: process.env.VAPID_PUBLIC_KEY || VAPID_PUBLIC_KEY.value(),
+    vapidPrivate: process.env.VAPID_PRIVATE_KEY || VAPID_PRIVATE_KEY.value(),
     vapidSubject:
-      process.env.VAPID_SUBJECT || cfg?.vapid?.subject || "mailto:you@example.com"
+      process.env.VAPID_SUBJECT || VAPID_SUBJECT.value() || "mailto:you@example.com"
   };
 }
 
@@ -427,4 +432,9 @@ Wenn unsicher, konservativ schaetzen. Schreibe die note auf Deutsch.`;
   }
 });
 
-exports.api = functions.https.onRequest(app);
+exports.api = onRequest(
+  {
+    secrets: [OPENAI_API_KEY, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT]
+  },
+  app
+);

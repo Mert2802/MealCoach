@@ -19,8 +19,10 @@ node scripts/generate-vapid.js
 2) Firebase Functions Config setzen
 ```
 firebase use mealcoach-b794d
-firebase functions:config:set openai.key="OPENAI_API_KEY"
-firebase functions:config:set vapid.public="VAPID_PUBLIC_KEY" vapid.private="VAPID_PRIVATE_KEY" vapid.subject="mailto:you@example.com"
+echo OPENAI_API_KEY | firebase functions:secrets:set OPENAI_API_KEY
+echo VAPID_PUBLIC_KEY | firebase functions:secrets:set VAPID_PUBLIC_KEY
+echo VAPID_PRIVATE_KEY | firebase functions:secrets:set VAPID_PRIVATE_KEY
+echo mailto:you@example.com | firebase functions:secrets:set VAPID_SUBJECT
 ```
 
 3) Web-ENV anlegen
