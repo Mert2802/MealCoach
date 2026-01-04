@@ -448,7 +448,8 @@ Wenn unsicher, konservativ schaetzen. Schreibe die note auf Deutsch.`;
       remaining: calcRemaining(targets, log.consumed)
     });
   } catch (err) {
-    res.status(500).json({ error: "analysis_failed" });
+    console.error("analyze-meal failed", err?.message || err);
+    res.status(500).json({ error: "analysis_failed", detail: err?.message || "unknown" });
   }
 });
 
