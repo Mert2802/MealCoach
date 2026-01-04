@@ -420,7 +420,9 @@ Wenn unsicher, konservativ schaetzen. Schreibe die note auf Deutsch.`;
           ]
         }
       ],
-      response_format: { type: "json_schema", json_schema: schema }
+      text: {
+        format: { type: "json_schema", json_schema: schema }
+      }
     });
 
     const text = response.output_text;
