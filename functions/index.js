@@ -421,7 +421,7 @@ Wenn unsicher, konservativ schaetzen. Schreibe die note auf Deutsch.`;
         }
       ],
       text: {
-        format: { type: "json_schema", json_schema: schema }
+        format: { type: "json_schema", name: "meal_analysis", json_schema: schema }
       }
     });
 
