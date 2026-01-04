@@ -19,7 +19,7 @@ const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
 app.use(cors({ origin: true }));
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "15mb" }));
 
 const OPENAI_API_KEY = defineSecret("OPENAI_API_KEY");
 const VAPID_PUBLIC_KEY = defineSecret("VAPID_PUBLIC_KEY");
@@ -343,7 +343,18 @@ app.post("/api/analyze-meal", upload.single("image"), async (req, res) => {
   if (!client) {
     return res.status(500).json({ error: "OPENAI_API_KEY missing" });
   }
-  if (!req.file) return res.status(400).json({ error: "image required" });
+  let base64 = "";
+  let mimeType = "";
+  if (req.file) {
+    base64 = req.file.buffer.toString("base64");
+    mimeType = req.file.mimetype;
+  } else if (req.body?.imageBase64) {
+    const raw = String(req.body.imageBase64);
+    const cleaned = raw.includes(",") ? raw.split(",").pop() : raw;
+    base64 = cleaned || "";
+    mimeType = req.body.mimeType || "image/jpeg";
+  }
+  if (!base64) return res.status(400).json({ error: "image required" });
 
   const prompt = `Du bist ein Ernaehrungsassistent. Schaetze Kategorien und Portionen.
 Gib JSON exakt nach Schema zurueck. Nutze Portionen: 0.5, 1, 1.5, 2.
@@ -388,8 +399,7 @@ Wenn unsicher, konservativ schaetzen. Schreibe die note auf Deutsch.`;
   };
 
   try {
-    const base64 = req.file.buffer.toString("base64");
-    const imageUrl = `data:${req.file.mimetype};base64,${base64}`;
+    const imageUrl = `data:${mimeType};base64,${base64}`;
 
     const response = await client.responses.create({
       model: "gpt-4o-mini",

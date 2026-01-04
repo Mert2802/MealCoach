@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { apiGet, apiPost, apiUpload, getApiUrl, setApiUrl } from "./api.js";
+import { apiGet, apiPost, getApiUrl, setApiUrl } from "./api.js";
 
 const CATEGORY_LABELS = {
   protein: "Protein",
@@ -185,9 +185,18 @@ export default function App() {
     setBusy(true);
     setError("");
     try {
-      const form = new FormData();
-      form.append("image", file);
-      const res = await apiUpload("/api/analyze-meal", form);
+      const reader = new FileReader();
+      const dataUrl = await new Promise((resolve, reject) => {
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error("read_failed"));
+        reader.readAsDataURL(file);
+      });
+      if (typeof dataUrl !== "string") throw new Error("read_failed");
+      const [, base64] = dataUrl.split(",");
+      const res = await apiPost("/api/analyze-meal", {
+        imageBase64: base64 || "",
+        mimeType: file.type || "image/jpeg"
+      });
       setAnalysis(res);
       await loadData();
     } catch (err) {
