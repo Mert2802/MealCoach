@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: mealcoach-api
+    env: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    autoDeploy: true
+    disk:
+      name: mealcoach-data
+      mountPath: /opt/render/project/src/server/data
+      sizeGB: 1
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_SUBJECT
+        value: mailto:you@example.com

@@ -1,0 +1,336 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600&display=swap");
+
+:root {
+  color-scheme: light;
+  --bg: #0b0b0a;
+  --bg-soft: #151514;
+  --card: #1e1d1a;
+  --accent: #ff9b54;
+  --accent-2: #ff5f6d;
+  --text: #f6f5f2;
+  --muted: #a9a6a1;
+  --ring: rgba(255, 155, 84, 0.4);
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  background: radial-gradient(circle at 15% 10%, rgba(255, 155, 84, 0.2), transparent 45%),
+    radial-gradient(circle at 85% 20%, rgba(255, 95, 109, 0.2), transparent 40%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+  display: grid;
+  gap: 28px;
+  animation: fadeIn 0.8s ease;
+}
+
+.hero {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  align-items: center;
+}
+
+h1, h2, h3 {
+  font-family: "Space Grotesk", sans-serif;
+  margin: 0 0 12px;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  color: var(--muted);
+  max-width: 520px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.7rem;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.hero-card {
+  background: linear-gradient(140deg, rgba(255, 155, 84, 0.12), rgba(255, 95, 109, 0.06));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 10px;
+}
+
+.hero-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.hero-input {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--text);
+}
+
+.panel {
+  background: var(--card);
+  border-radius: 22px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: var(--shadow);
+  animation: rise 0.6s ease;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.pill {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+
+.pill.ok {
+  color: #0b0b0a;
+  background: linear-gradient(135deg, #42e695, #3bb2b8);
+}
+
+.pill.warn {
+  color: #0b0b0a;
+  background: linear-gradient(135deg, #ff9b54, #ff5f6d);
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.grid-two {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.metric {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 16px;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.metric h3 {
+  font-size: 2rem;
+  margin: 6px 0;
+}
+
+.metric span {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.checkins {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.checkin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, border 0.2s ease;
+}
+
+.checkin.done {
+  background: rgba(46, 204, 113, 0.18);
+  border-color: rgba(46, 204, 113, 0.4);
+}
+
+.checkin:hover {
+  transform: translateY(-2px);
+  border-color: var(--ring);
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.label {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+
+.value {
+  font-size: 1rem;
+  margin: 8px 0 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border: none;
+  color: #0b0b0a;
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(255, 155, 84, 0.2);
+  transition: transform 0.2s ease;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: none;
+}
+
+.error {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(255, 95, 109, 0.16);
+  border: 1px solid rgba(255, 95, 109, 0.4);
+}
+
+.photo {
+  display: grid;
+  gap: 16px;
+}
+
+.analysis {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 16px;
+  border-radius: 14px;
+}
+
+.analysis ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.settings {
+  display: grid;
+  gap: 14px;
+}
+
+.settings label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+}
+
+.settings input {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--text);
+}
+
+.meal-settings {
+  display: grid;
+  gap: 10px;
+}
+
+.meal-row {
+  display: grid;
+  gap: 10px;
+  align-items: center;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  color: var(--muted);
+}
+
+.guide {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.plan-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  display: grid;
+  gap: 8px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 720px) {
+  .panel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .meal-row {
+    grid-template-columns: 1fr;
+  }
+  button {
+    width: 100%;
+    justify-content: center;
+  }
+}

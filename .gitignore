@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.*
+npm-debug.log*
+.git.bak
+
+server/data/logs/
+server/data/subscriptions.json
+
+web/node_modules/
+server/node_modules/

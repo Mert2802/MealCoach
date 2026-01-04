@@ -1,0 +1,14 @@
+name: Meal Coach Nag Check
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  nag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger nag check
+        run: |
+          curl -sS -X POST "https://mealcoach-b794d.web.app/api/nag-check" -H "Content-Type: application/json" --data "{}"

@@ -1,0 +1,10 @@
+{
+  "intervalMinutes": 20,
+  "quietHours": { "start": "22:00", "end": "07:00" },
+  "meals": [
+    { "id": "breakfast", "label": "Fruehstueck", "time": "09:00", "windowMinutes": 120 },
+    { "id": "lunch", "label": "Mittagessen", "time": "13:00", "windowMinutes": 120 },
+    { "id": "snack", "label": "Snack", "time": "16:30", "windowMinutes": 120 },
+    { "id": "dinner", "label": "Abendessen", "time": "19:30", "windowMinutes": 150 }
+  ]
+}
