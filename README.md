@@ -3,7 +3,7 @@
 Web-App + Backend fuer konstante Erinnerungen, Check-ins und OpenAI-Fotoanalyse.
 
 ## Voraussetzungen
-- Node.js 18+
+- Node.js 20+
 - Firebase CLI (`npm i -g firebase-tools`)
 - Firebase Projekt (z.B. `mealcoach-b794d`)
 - OpenAI API Key
