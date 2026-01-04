@@ -27,12 +27,14 @@ const VAPID_PRIVATE_KEY = defineSecret("VAPID_PRIVATE_KEY");
 const VAPID_SUBJECT = defineSecret("VAPID_SUBJECT");
 
 function getConfig() {
+  const clean = (value) => (value ? String(value).trim() : "");
   return {
-    openaiKey: process.env.OPENAI_API_KEY || OPENAI_API_KEY.value(),
-    vapidPublic: process.env.VAPID_PUBLIC_KEY || VAPID_PUBLIC_KEY.value(),
-    vapidPrivate: process.env.VAPID_PRIVATE_KEY || VAPID_PRIVATE_KEY.value(),
+    openaiKey: clean(process.env.OPENAI_API_KEY || OPENAI_API_KEY.value()),
+    vapidPublic: clean(process.env.VAPID_PUBLIC_KEY || VAPID_PUBLIC_KEY.value()),
+    vapidPrivate: clean(process.env.VAPID_PRIVATE_KEY || VAPID_PRIVATE_KEY.value()),
     vapidSubject:
-      process.env.VAPID_SUBJECT || VAPID_SUBJECT.value() || "mailto:you@example.com"
+      clean(process.env.VAPID_SUBJECT || VAPID_SUBJECT.value()) ||
+      "mailto:you@example.com"
   };
 }
 
